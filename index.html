@@ -18,9 +18,17 @@
               </div>
         </section>
         <section class="container">
-            <div id="phoneContainer" class="row row-cols-1 row-cols-md-3 g-4">
-                
-                               
+            <div id="phoneContainer" class="row row-cols-1 row-cols-md-3 g-4"> 
+              </div>
+              <div id="no-phone-message" class="mt-5 d-none">
+                <h3 class="text-danger">No Phone Found.Please try a new search</h3>
+              </div>
+        </section>
+        <section id="loader" class="container d-none ">
+            <div style="height: 400px;" class="d-flex justify-content-center align-items-center">
+                <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
               </div>
         </section>
     </main>

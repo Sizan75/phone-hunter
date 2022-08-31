@@ -9,6 +9,15 @@ const loadphone = async (searchText) =>
 const displayPhones = phones => {
     const phoneContainer = document.getElementById('phoneContainer');
     phoneContainer.innerHTML = ''
+    phones=phones.slice(0,21)
+
+    const nophone = document.getElementById('no-phone-message');
+    if(phones.length === 0){
+        nophone.classList.remove('d-none');
+    }
+    else{
+        nophone.classList.add('d-none');
+    }
     phones.forEach(phone => {
         const phoneDiv = document.createElement('div')
         phoneDiv.classList.add('col')
@@ -24,14 +33,26 @@ const displayPhones = phones => {
         `
         phoneContainer.appendChild(phoneDiv)
     });
+    toggleSpinner(false);
 }
 
 
 document.getElementById('searchphone').addEventListener('click', function(){
+    toggleSpinner(true);
     const searchData = document.getElementById('floatingInput');
     const searchText = searchData.value
     loadphone(searchText);
     searchData.value =''
 })
 
+const toggleSpinner = isLoading => {
+    const spinner = document.getElementById('loader');
+    if(isLoading)
+    {
+        spinner.classList.remove('d-none')
+    }
+    else{
+        spinner.classList.add('d-none')
+    }
+}
 loadphone('iphone')
