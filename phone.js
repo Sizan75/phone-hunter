@@ -11,11 +11,11 @@ const displayPhones = (phones, daataLimit) => {
     phoneContainer.innerHTML = ''
     const showallDiv= document.getElementById('showall')
     if( daataLimit && phones.length > 10){
-        phones=phones.slice(0,9)
-        showallDiv.classList.remove('d-none')
+        phones=phones.slice(0,9);
+        showallDiv.classList.remove('d-none');
     }
     else{
-        showallDiv.classList.add('d-none')
+        showallDiv.classList.add('d-none');
     }
 
     const nophone = document.getElementById('no-phone-message');
@@ -34,6 +34,8 @@ const displayPhones = (phones, daataLimit) => {
         <div class="card-body">
           <h5 class="card-title">${phone.phone_name}</h5>
           <p class="card-text">${phone.brand}</p>
+          <button class="btn btn-success" onclick="showDetails('${phone.slug}')" data-bs-toggle="modal" data-bs-target="#phoneDetailModal" >Search Phone</button>
+             
         </div>
       </div>
     </div>
@@ -71,3 +73,27 @@ document.getElementById('btn-showall').addEventListener('click' , function(){
 
     searchByBtn();      
 })
+
+document.getElementById('floatingInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+     searchByBtn();
+    }
+});
+
+const showDetails =async id =>{
+    const url =`https://openapi.programming-hero.com/api/phone/${id}`
+    const res =await fetch(url);
+    const data = await res.json();
+    displayPhoneDetails(data.data)
+}
+
+const displayPhoneDetails = phone => {
+    const modalTitle = document.getElementById('modalTitle');
+    modalTitle.innerText=phone.name;
+    
+    const modalbody = document.getElementById('modalbody');
+    modalbody.innerHTML = `
+    <p>Release Date: ${phone.releaseDate ? phone.releaseDate : 'No release Date Found'}</p>
+    <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth'}</p>
+    `;
+}
