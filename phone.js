@@ -1,9 +1,17 @@
+let hello = '';
+
 const loadphone = async (searchText, daataLimit ) =>
 {
-    const url =`https://openapi.programming-hero.com/api/phones?search=${searchText}`
+    try{
+        const url =`https://openapi.programming-hero.com/api/phones?search=${searchText}`
     const res = await fetch(url);
     const data = await res.json();
     displayPhones(data.data, daataLimit ); 
+    }
+    catch(error){
+        console.log(error)
+    }
+    
 }
 
 const displayPhones = (phones, daataLimit) => {
@@ -48,9 +56,10 @@ const displayPhones = (phones, daataLimit) => {
 const searchByBtn = (daataLimit) => {
     toggleSpinner(true);
     const searchData = document.getElementById('floatingInput');
-    const searchText = searchData.value
+    const searchText = searchData.value || hello 
+    hello = searchData ;
     loadphone(searchText ,daataLimit);
-    searchData.value =''
+   
 }
 
 document.getElementById('searchphone').addEventListener('click', function(){
